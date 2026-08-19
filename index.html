@@ -221,6 +221,9 @@ figure { margin: 0; } figure svg { max-width: 100%; height: auto; display: block
   var JUNK_DOMAINS = ['pmln.org', 'knesset.gov.il', 'truthsocial.com'];
   var LAUNCH_DAY = '2026-08-15';
   var GST_MS = 4 * 3600 * 1000;
+  /* Bump whenever a counting rule changes. The dashboard refuses "live" data
+     computed by an older rules version (a stale Apps Script deployment). */
+  var RULES_VERSION = 2;
 
   function parseCSV(text) {
     var rows = [], row = [], cur = '', inQ = false, i = 0;
@@ -663,6 +666,7 @@ figure { margin: 0; } figure svg { max-width: 100%; height: auto; display: block
     });
     return {
       computedAt: new Date().toISOString(),
+      rules: RULES_VERSION,
       days: dayRange(LAUNCH_DAY, endDay),
       todayGST: todayGST,
       waitlist: w,
@@ -680,7 +684,7 @@ figure { margin: 0; } figure svg { max-width: 100%; height: auto; display: block
 </script>
 <script>
 'use strict';
-var SNAPSHOT = {"computedAt":"2026-08-19T14:57:18.263Z","days":["2026-08-15","2026-08-16","2026-08-17","2026-08-18","2026-08-19"],"todayGST":"2026-08-19","waitlist":{"rawRows":84,"uniquePeople":79,"junkRows":4,"cleanPeople":75,"perDay":{"2026-08-15":62,"2026-08-16":9,"2026-08-17":3,"2026-08-18":7,"2026-08-19":3},"perDayClean":{"2026-08-15":58,"2026-08-16":9,"2026-08-17":3,"2026-08-18":7,"2026-08-19":3},"perDayPeople":{"2026-08-15":56,"2026-08-16":9,"2026-08-17":3,"2026-08-18":4,"2026-08-19":3},"assetsMentions":{"Gold":39,"ETFs":44,"Equities":35},"assetsResponders":65,"combos":{"Gold":11,"ETFs":15,"ETFs + Equities + Gold":19,"ETFs + Equities":6,"Equities + Gold":5,"Equities":5,"ETFs + Gold":4},"allThreeShare":0.2923076923076923,"amounts":{"n":56,"min":100,"q1":5000,"median":17500,"q3":42500,"max":360000,"mean":33368,"total":1868600},"amountBuckets":{"under 1k":2,"1k-5k":8,"5k-10k":8,"10k-20k":10,"20k-30k":10,"30k-40k":3,"40k-50k":1,"50k-100k":8,"100k+":6},"installments":{"3":10,"4":3,"5":7,"6":8,"10":3,"12":16,"18":1,"20":2,"24":6},"installmentsBlank":19,"stage1Only":10,"placeholderAmounts":3,"domains":{"yahoo":8,"gmail":48,"corporate":7,"microsoft":11,"edu":1},"lastSubmissionDay":"2026-08-19"},"events":{"totalEvents":1027,"eventsPerDay":{"2026-08-15":748,"2026-08-16":146,"2026-08-17":20,"2026-08-18":80,"2026-08-19":33},"codeCounts":{"PAGE_FOCUS":104,"PAGE_VIEW":191,"PAGE_BLUR":254,"SIGNUP_STAGE1_SUBMIT":81,"COLLECT_DEVICE_INFO":109,"SIGNUP_STAGE2_SUBMIT":70,"HIW_CAROUSEL_NEXT":125,"NAV_BENEFITS_CLICK":17,"NAV_HOW_IT_WORKS_CLICK":15,"CTA_EARLY_ACCESS_CLICK":55,"HIW_CAROUSEL_PREV":6},"sessions":164,"visitors":116,"sessionsPerDay":{"2026-08-15":123,"2026-08-16":22,"2026-08-17":4,"2026-08-18":9,"2026-08-19":6},"visitorsPerDay":{"2026-08-15":95,"2026-08-16":12,"2026-08-17":2,"2026-08-18":4,"2026-08-19":3},"returning":31,"consWithSessions":116,"pageViews":191,"referrers":{"Direct":157,"Instagram":33,"Google":1,"Other":0},"sourceConversion":{"Direct":{"visitors":92,"signups":51},"Instagram":{"visitors":22,"signups":10},"No page view":{"visitors":1,"signups":0},"Google":{"visitors":1,"signups":0}},"utmSources":{"ig":17},"layout":{"mobile":100,"desktop":9},"os":{"iOS":78,"Android":22,"macOS":7,"Windows":2,"other":0},"timezones":{"Asia/Dubai":54,"Asia/Bangkok":2,"Europe/Paris":4,"Europe/London":12,"Asia/Riyadh":3,"Europe/Lisbon":2,"Asia/Calcutta":7,"America/Toronto":7,"Europe/Berlin":1,"Australia/Brisbane":1,"Asia/Tbilisi":1,"Europe/Copenhagen":1,"Europe/Madrid":1,"Asia/Muscat":1,"America/Los_Angeles":4,"America/Vancouver":2,"Europe/Athens":1,"Africa/Cairo":1,"America/New_York":1,"Pacific/Auckland":1,"Europe/Amsterdam":2},"languages":{"en-US":56,"en-CA":12,"en-GB":36,"en-IN":2,"fr-FR":2,"en-NZ":1},"deviceEvents":109,"stage1":{"sessions":74,"consents":70,"submittedEvents":77,"invalid":{"name,email":1,"email":3},"perDay":{"2026-08-15":55,"2026-08-16":9,"2026-08-17":2,"2026-08-18":5,"2026-08-19":3}},"stage2":{"sessions":62,"consents":61,"submittedEvents":64,"invalid":{"installments":6},"perDay":{"2026-08-15":48,"2026-08-16":8,"2026-08-17":1,"2026-08-18":3,"2026-08-19":2}},"ctaSessions":46,"ctaPlacements":{"mobile-menu":10,"mobile-hero":22,"mobile-floating":21,"desktop-hero":1,"desktop-nav":1},"signupPath":{"scrolled":{"starters":39,"signups":35},"floating":{"starters":16,"signups":14},"hero":{"starters":15,"signups":10},"menu":{"starters":4,"signups":3}},"ctaEffect":{"floating":{"clicked":17,"signed":14},"hero":{"clicked":20,"signed":12},"menu":{"clicked":9,"signed":5}},"engagement":{"blurs":254,"activeMedian":10,"activeTotalHours":12.3,"scroll100Pct":72,"sessionActive":{"sessions":133,"mean":334,"median":31}},"carousel":{"sessions":25,"next":125,"prev":6},"nav":{"benefits":17,"hiw":15},"lastEventAt":"2026-08-19T11:56:55.759Z"},"consent":{"rows":119,"uniqueIds":117,"activeTrue":115,"withdrawn":2},"captureRate":92};
+var SNAPSHOT = {"computedAt":"2026-08-19T20:20:29.208Z","rules":2,"days":["2026-08-15","2026-08-16","2026-08-17","2026-08-18","2026-08-19","2026-08-20"],"todayGST":"2026-08-20","waitlist":{"rawRows":84,"uniquePeople":79,"junkRows":4,"cleanPeople":75,"perDay":{"2026-08-15":62,"2026-08-16":9,"2026-08-17":3,"2026-08-18":7,"2026-08-19":3},"perDayClean":{"2026-08-15":58,"2026-08-16":9,"2026-08-17":3,"2026-08-18":7,"2026-08-19":3},"perDayPeople":{"2026-08-15":56,"2026-08-16":9,"2026-08-17":3,"2026-08-18":4,"2026-08-19":3},"assetsMentions":{"Gold":39,"ETFs":44,"Equities":35},"assetsResponders":65,"combos":{"Gold":11,"ETFs":15,"ETFs + Equities + Gold":19,"ETFs + Equities":6,"Equities + Gold":5,"Equities":5,"ETFs + Gold":4},"allThreeShare":0.2923076923076923,"amounts":{"n":56,"min":100,"q1":5000,"median":17500,"q3":42500,"max":360000,"mean":33368,"total":1868600},"amountBuckets":{"under 1k":2,"1k-5k":8,"5k-10k":8,"10k-20k":10,"20k-30k":10,"30k-40k":3,"40k-50k":1,"50k-100k":8,"100k+":6},"installments":{"3":10,"4":3,"5":7,"6":8,"10":3,"12":16,"18":1,"20":2,"24":6},"installmentsBlank":19,"stage1Only":10,"placeholderAmounts":3,"domains":{"yahoo":8,"gmail":48,"corporate":7,"microsoft":11,"edu":1},"lastSubmissionDay":"2026-08-19"},"events":{"totalEvents":1032,"eventsPerDay":{"2026-08-15":748,"2026-08-16":146,"2026-08-17":20,"2026-08-18":80,"2026-08-19":36,"2026-08-20":2},"codeCounts":{"PAGE_FOCUS":106,"PAGE_VIEW":192,"PAGE_BLUR":256,"SIGNUP_STAGE1_SUBMIT":81,"COLLECT_DEVICE_INFO":109,"SIGNUP_STAGE2_SUBMIT":70,"HIW_CAROUSEL_NEXT":125,"NAV_BENEFITS_CLICK":17,"NAV_HOW_IT_WORKS_CLICK":15,"CTA_EARLY_ACCESS_CLICK":55,"HIW_CAROUSEL_PREV":6},"sessions":165,"visitors":116,"sessionsPerDay":{"2026-08-15":123,"2026-08-16":22,"2026-08-17":4,"2026-08-18":9,"2026-08-19":7},"visitorsPerDay":{"2026-08-15":95,"2026-08-16":12,"2026-08-17":2,"2026-08-18":4,"2026-08-19":3},"returning":32,"consWithSessions":116,"pageViews":192,"referrers":{"Direct":158,"Instagram":33,"Google":1,"Other":0},"sourceConversion":{"Direct":{"visitors":92,"signups":51},"Instagram":{"visitors":22,"signups":10},"No page view":{"visitors":1,"signups":0},"Google":{"visitors":1,"signups":0}},"utmSources":{"ig":17},"layout":{"mobile":100,"desktop":9},"os":{"iOS":78,"Android":22,"macOS":7,"Windows":2,"other":0},"timezones":{"Asia/Dubai":54,"Asia/Bangkok":2,"Europe/Paris":4,"Europe/London":12,"Asia/Riyadh":3,"Europe/Lisbon":2,"Asia/Calcutta":7,"America/Toronto":7,"Europe/Berlin":1,"Australia/Brisbane":1,"Asia/Tbilisi":1,"Europe/Copenhagen":1,"Europe/Madrid":1,"Asia/Muscat":1,"America/Los_Angeles":4,"America/Vancouver":2,"Europe/Athens":1,"Africa/Cairo":1,"America/New_York":1,"Pacific/Auckland":1,"Europe/Amsterdam":2},"languages":{"en-US":56,"en-CA":12,"en-GB":36,"en-IN":2,"fr-FR":2,"en-NZ":1},"deviceEvents":109,"stage1":{"sessions":74,"consents":70,"submittedEvents":77,"invalid":{"name,email":1,"email":3},"perDay":{"2026-08-15":55,"2026-08-16":9,"2026-08-17":2,"2026-08-18":5,"2026-08-19":3}},"stage2":{"sessions":62,"consents":61,"submittedEvents":64,"invalid":{"installments":6},"perDay":{"2026-08-15":48,"2026-08-16":8,"2026-08-17":1,"2026-08-18":3,"2026-08-19":2}},"ctaSessions":46,"ctaPlacements":{"mobile-menu":10,"mobile-hero":22,"mobile-floating":21,"desktop-hero":1,"desktop-nav":1},"signupPath":{"scrolled":{"starters":39,"signups":35},"floating":{"starters":16,"signups":14},"hero":{"starters":15,"signups":10},"menu":{"starters":4,"signups":3}},"ctaEffect":{"floating":{"clicked":17,"signed":14},"hero":{"clicked":20,"signed":12},"menu":{"clicked":9,"signed":5}},"engagement":{"blurs":256,"activeMedian":9,"activeTotalHours":12.3,"scroll100Pct":73,"sessionActive":{"sessions":134,"mean":332,"median":31}},"carousel":{"sessions":25,"next":125,"prev":6},"nav":{"benefits":17,"hiw":15},"lastEventAt":"2026-08-19T20:11:10.409Z"},"consent":{"rows":119,"uniqueIds":117,"activeTrue":115,"withdrawn":2},"captureRate":92};
 
 /* ---------- helpers ---------- */
 function $(id) { return document.getElementById(id); }
@@ -1134,6 +1138,7 @@ function setMode(live, stampIso, extra) {
 function setStatus(html) { $('livestatus').innerHTML = html; }
 
 /* ---------- boot ---------- */
+var renderedAt = SNAPSHOT.computedAt; /* freshness of what is on screen \u2014 never render older data */
 render(SNAPSHOT);
 setMode(false, SNAPSHOT.computedAt);
 
@@ -1174,11 +1179,15 @@ function recomputeLive() {
   try {
     var m = TenorMetrics.computeAll(liveTexts.waitlist, liveTexts.events, liveTexts.consent);
     render(m);
-    var newest = Math.max(liveStamps.waitlist || 0, liveStamps.events || 0, liveStamps.consent || 0);
-    setMode(true, new Date(newest || Date.now()).toISOString(), 'refreshes every 30 min');
-    setStatus('Live from the three sheets via your Google Drive connector. Aggregates are computed in your browser; nothing is stored.');
+    /* honest freshness: the OLDEST of the three sheets' fetch times */
+    var oldest = Math.min(liveStamps.waitlist || 0, liveStamps.events || 0, liveStamps.consent || 0);
+    renderedAt = new Date(oldest || Date.now()).toISOString();
+    var staleKeys = Object.keys(liveErrors);
+    setMode(true, renderedAt, 'refreshes every 30 min');
+    setStatus('Live from the three sheets via your Google Drive connector. Aggregates are computed in your browser; nothing is stored.' +
+      (staleKeys.length ? ' Note: the ' + staleKeys.join(' and ') + ' sheet could not be refreshed \u2014 its data may be older than the stamp.' : ''));
   } catch (err) {
-    setStatus('<span class="err">Live data arrived but could not be parsed \u2014 showing it anyway may be wrong, so the page kept the last good view.</span>');
+    setStatus('<span class="err">Live data arrived but could not be parsed \u2014 the page kept the last good view.</span>');
   }
 }
 function errCopy(code) {
@@ -1196,23 +1205,39 @@ var METRICS_URL = 'https://script.google.com/macros/s/AKfycbxUNBh2eQJEuPSHG5MObz
 
 function initWebLive() {
   var fetchMetrics = function () {
+    var checked = gstStamp(new Date().toISOString());
     return fetch(METRICS_URL, { cache: 'no-store' }).then(function (r) {
       if (!r.ok) throw new Error('http ' + r.status);
       return r.json();
     }).then(function (m) {
-      if (!(m && m.waitlist && m.events && m.consent && m.days)) throw new Error('shape');
+      if (!(m && m.waitlist && m.events && m.consent && m.days && m.computedAt)) throw new Error('shape');
+      if (!(m.rules >= SNAPSHOT.rules)) {
+        /* endpoint runs an older Apps Script with outdated counting rules */
+        setStatus('Checked ' + checked + ': the live endpoint is running an OLDER version of the counting rules than this page, so its numbers would be wrong \u2014 showing this page\u2019s own data (' + gstStamp(renderedAt) + '). Fix: re-paste the latest script at script.google.com and redeploy.');
+        return;
+      }
+      if (m.computedAt <= renderedAt) {
+        /* endpoint returned data no newer than what is already on screen \u2014
+           never regress; say so instead */
+        setStatus('Checked ' + checked + ': the live endpoint is returning data computed ' +
+          gstStamp(m.computedAt) + ', which is not newer than what this page already shows \u2014 keeping the newer numbers. ' +
+          'If this persists, the Apps Script needs to be redeployed.');
+        return;
+      }
+      renderedAt = m.computedAt;
       render(m);
       setMode(true, m.computedAt, 'live from the sheets');
-      setStatus('Live: aggregates recomputed from the sheets on every page load, every 30 minutes while open, and on Refresh (data is at most ~2 minutes cached).');
+      setStatus('Live: recomputed from the sheets on every page load, every 30 minutes while open, and on Refresh. Last checked ' + checked + '.');
     }).catch(function () {
-      setStatus('Live metrics endpoint unreachable right now \u2014 showing the published snapshot.');
+      setStatus('Checked ' + checked + ': live metrics endpoint unreachable \u2014 showing the newest data this page has (' + gstStamp(renderedAt) + ').');
     });
   };
   var btn = $('refreshbtn');
   btn.style.display = 'inline-block';
   btn.addEventListener('click', function () {
     btn.disabled = true;
-    fetchMetrics().then(function () { btn.disabled = false; });
+    btn.textContent = 'Checking\u2026';
+    fetchMetrics().then(function () { btn.disabled = false; btn.textContent = 'Refresh now'; });
   });
   fetchMetrics();
   setInterval(fetchMetrics, 1800000);
@@ -1229,11 +1254,13 @@ function initLive() {
       setStatus('Snapshot baked at publish time. Live refresh is unavailable in this view \u2014 ask Claude to refresh and republish.');
       return;
     }
-    $('refreshbtn').style.display = 'inline-block';
-    $('refreshbtn').addEventListener('click', function () {
-      $('refreshbtn').disabled = true;
+    var mbtn = $('refreshbtn');
+    mbtn.style.display = 'inline-block';
+    mbtn.addEventListener('click', function () {
+      mbtn.disabled = true;
+      mbtn.textContent = 'Checking\u2026';
       mcp.invalidate(DRIVE).catch(function () {}).then(function () {
-        setTimeout(function () { $('refreshbtn').disabled = false; }, 4000);
+        setTimeout(function () { mbtn.disabled = false; mbtn.textContent = 'Refresh now'; }, 4000);
       });
     });
     SHEETS.forEach(function (sh) {
@@ -1243,11 +1270,9 @@ function initLive() {
           if (ev.type === 'data') {
             var text = extractCSV(ev.result, sh.mustContain);
             if (!text) {
+              /* keep the last good copy of this sheet; flag it, never regress the page */
               liveErrors[sh.key] = 'shape';
-              delete liveTexts[sh.key]; /* never mix a stale sheet into a "live" render */
-              render(SNAPSHOT);
-              setMode(false, SNAPSHOT.computedAt);
-              setStatus('Live refresh got an unexpected response for the ' + sh.key + ' sheet \u2014 showing the published snapshot instead.');
+              setStatus('The ' + sh.key + ' sheet returned an unexpected response \u2014 showing the newest data this page has (' + gstStamp(renderedAt) + '). It will retry on the next cycle.');
               return;
             }
             delete liveErrors[sh.key];
@@ -1258,17 +1283,14 @@ function initLive() {
             var code = ev.error && ev.error.code;
             liveErrors[sh.key] = code;
             var copy = errCopy(code);
-            if (code === 'needs_reauth' || code === 'server_not_connected' ||
-                code === 'blocked_by_policy' || code === 'approval_required' || code === 'selection_required') {
-              liveTexts = {}; /* retract live data, fall back to snapshot */
-              render(SNAPSHOT);
-              setMode(false, SNAPSHOT.computedAt);
-              setStatus(copy ? copy : 'Live refresh unavailable \u2014 showing the published snapshot.');
+            /* never blank the page or regress to older data \u2014 keep the newest
+               rendered view and explain what live refresh needs */
+            if (copy) {
+              setStatus(copy + ' Showing the newest data this page has (' + gstStamp(renderedAt) + ').');
             } else if (code === 'not_granted' || code === 'capability_disabled' || code === 'capability_removed') {
-              setStatus('Snapshot baked at publish time. Live refresh is not available in this view.');
+              setStatus('Live refresh is not available in this view \u2014 showing data as of ' + gstStamp(renderedAt) + '.');
             } else {
-              /* transient: keep whatever is rendered, note quietly */
-              setStatus('Snapshot/live data shown may be a few minutes old \u2014 a refresh of the "' + sh.key + '" sheet failed (' + (code || 'error') + ') and will retry on the next cycle.');
+              setStatus('A refresh of the ' + sh.key + ' sheet failed (' + (code || 'error') + ') \u2014 showing data as of ' + gstStamp(renderedAt) + '. It will retry on the next cycle.');
             }
           }
         },
